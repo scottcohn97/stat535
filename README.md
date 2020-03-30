@@ -15,6 +15,7 @@ proj/
 ├── doc/
 ├── figs/
 └── output/
+└── papers/
 ```
 
 Please see each subfolder for a README file.
