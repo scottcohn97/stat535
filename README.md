@@ -11,7 +11,6 @@ This project is structured as follows.
 ```
 proj/
 ├── lib/
-├── data/
 ├── doc/
 ├── figs/
 ├── output/
