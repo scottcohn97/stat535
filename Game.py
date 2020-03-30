@@ -65,9 +65,14 @@ class Game:
     def distr(self):
         """plot the distribution of assets of the current state"""
         pass
+    
+    """the methods that are not implemented are not necessary for a functioning model but may become handy during analysis.
+    Will update when I have time :)"""
 
 class Player:
-    """A player class that represents every single player with their strategy as str, current assets as int, and the actions taken as a list"""
+    """A player class that represents every single player with their strategy as str, 
+    current assets as int, and the actions taken against certain opponent as a dict with opponents' id as keys 
+    and list of actions as values"""
     def __init__(self,ID,a = 0, s = 'random'):
         self.id = ID
         self.acts = {}
@@ -114,12 +119,24 @@ class Matrix:
         if a1 == self.c2 and a2 == self.c2:
             return {p1:2, p2: 2}
     
-  
+ 
 
-
+"""
 testNet = nx.Graph()
 for i in [1,2,3]:
     testNet.add_node(i, player = Player(i))
 testNet.add_edges_from([(1,2),(2,3),(1,3)])
 g = Game(testNet)
-g1 = g.succ().succ() #A test case for two rounds 
+g1 = g.succ().succ() #A test case for two rounds on a complete graph with 3 nodes 
+"""
+
+
+"""
+testNet = nx.Graph()
+for i in range(30):
+    testNet.add_node(i, player = Player(i))
+E = [(random.randrange(0, 30), random.randrange(0, 30)) for i in range(40)]
+testNet.add_edges_from(E)
+g = Game(testNet)
+g1 = g.succ().succ() #A test case for two rounds on a much larger and denser graph randomly generated.
+"""
