@@ -23,15 +23,15 @@ class Game:
         self.network = G
         self.players = nx.get_node_attributes(G,'player')
         
-    def threshold(self, f = lambda x: sum(x)/len(x)):
-        """calculate threshold for breaking ties based on the current state base on a function f, which is defaulted to be mean"""
+    def threshold(self, f):
+        """calculate threshold for breaking ties based on the current state base on a function f"""
         ass = [] # not intended, you know the hardest thing in programming is naming your variables :)
         for p in self.players.values():
             ass.append(p.asset)
         return f(ass)
     
-    def succ(self):  #successor 
-        """Given a current game state, return the game state of next round"""
+    def succ(self,f = lambda x: sum(x)/len(x)):  #successor 
+         """Given a current game state and a function f (defaulted to be mean) as a threshold, return the game state of next round """
                         
         for e in list(self.network.edges):
             a = self.players[e[0]]
@@ -43,7 +43,7 @@ class Game:
         
         def breakTie(a,b):
             """Given a,b as players, returns true if a want to break tie with b or the other way around"""
-            return not(a.asset >= self.threshold() and b.asset >= self.threshold())
+            return not(a.asset >= self.threshold(f) and b.asset >= self.threshold(f))
         
         
         for e in list(self.network.edges):
@@ -72,7 +72,7 @@ class Game:
 class Player:
     """A player class that represents every single player with their strategy as str, 
     current assets as int, and the actions taken against certain opponent as a dict with opponents' id as keys 
-    and list of actions as values"""
+    and list of actions taken as values"""
     def __init__(self,ID,a = 0, s = 'random'):
         self.id = ID
         self.acts = {}
