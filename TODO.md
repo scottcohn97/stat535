@@ -34,3 +34,35 @@ A `segregated group` is one that is connected and separated from another group.
 - Is segregation behavior different for different levels of wealth inequality?
 - How about levels of cooperative behavior?
 - For the above, how do we measure this? 
+
+# Wed Apr 1
+
+### general
+
+- visualization
+- starting gini
+    - and how to distribute wealth
+    - constructor: given gini coeff -> construct pop with wealth distro
+    - how to assign strategies (randomly)
+    - maybe look at extreme cases
+    - Scott find paper with most common "real" strategies
+
+- network starts as complete graph
+- threshold to break/maintain is average of proportional change in wealth ??
+- strategies
+    - random
+    - always coop
+    - always defect
+    - add more later 
+    
+### What to measure
+
+- how to analyze subgraphs
+- gini of whole pop and connected components
+    - what differentiates subgraphs ?
+
+### file org
+
+- game.py is source file
+- separate files of indiv sim go in a new file / sub dir
+
