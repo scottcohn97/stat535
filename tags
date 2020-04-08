@@ -1,0 +1,36 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/30cd8e0/
+Figures	TODO.md	/^### Figures$/;"	S	chapter:Theory
+Game	Game.py	/^class Game:$/;"	c
+Initial Conditions / Framework	TODO.md	/^### Initial Conditions \/ Framework$/;"	S	chapter:Theory
+Interpreting Results	TODO.md	/^### Interpreting Results$/;"	S	chapter:Theory
+Matrix	Game.py	/^class Matrix:$/;"	c
+Player	Game.py	/^class Player:$/;"	c
+Range / Granularity	TODO.md	/^### Range \/ Granularity$/;"	S	chapter:Theory
+Statistics 535 Final Project	README.md	/^# Statistics 535 Final Project$/;"	c
+Theory	TODO.md	/^# Theory$/;"	c
+Title: TBD	README.md	/^## Title: TBD$/;"	s	chapter:Statistics 535 Final Project
+Wed Apr 1	TODO.md	/^# Wed Apr 1$/;"	c
+What to measure	TODO.md	/^### What to measure$/;"	S	chapter:Wed Apr 1
+[Micro] Dynamics	TODO.md	/^### [Micro] Dynamics$/;"	S	chapter:Theory
+__init__	Game.py	/^    def __init__(self,ID,a = 0, s = 'random'):$/;"	m	class:Player
+__init__	Game.py	/^    def __init__(self,numAgent,Gini,para,distr = 'lognormal'):$/;"	m	class:Game
+__init__	Game.py	/^    def __init__(self,p1,p2,c1 = 'E',c2 = 'L'):$/;"	m	class:Matrix
+file org	TODO.md	/^### file org$/;"	S	chapter:Wed Apr 1
+general	TODO.md	/^### general$/;"	S	chapter:Wed Apr 1
+gini	Game.py	/^    def gini(self):$/;"	m	class:Game
+naive	Game.py	/^    def naive(a,b,w):$/;"	m	class:Game
+np	Game.py	/^import numpy as np$/;"	I
+nx	Game.py	/^import networkx as nx $/;"	I
+payoff	Game.py	/^    def payoff(self):$/;"	m	class:Matrix
+succ	Game.py	/^    def succ(self,f = naive):  #successor  $/;"	m	class:Game
+takeAct	Game.py	/^    def takeAct(self,opponent,C = ('E', 'L')):$/;"	m	class:Player
+toImage	Game.py	/^    def toImage(self):$/;"	m	class:Game
+wealth_distr	Game.py	/^    def wealth_distr(self):$/;"	m	class:Game

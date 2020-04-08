@@ -65,11 +65,26 @@ class Game:
         else:
             return 0.5
             
-    
     def gini(self):
-        "calculate the current gini"
-        pass
+        """Returns the difference-based Gini based on Bowles/Carlin
+
+        delta is sum of abs differences between agents
+        ybar is average wealth in network
+        n is total number of agents
+        G is Gini
+        """
+        pass # for now
     
+        # n = number of edges
+        # delta = 0
+        # ybar = mean(y[:]) # find avg of wealth
+        # for j in range(n - 1):
+        #     for (j + 1) in range(n):
+        #         delta += abs(y[i] - y[j]) # obv make this correspond to wealth attribute
+        # 
+        # G = (delta / (n * (n - 1))) * ( 1 / ybar )
+        #
+        #return G     
     
     def succ(self,f = naive):  #successor  
         """Given a current game state and a function f , return the game state of next round 
