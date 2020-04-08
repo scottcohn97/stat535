@@ -15,7 +15,7 @@ import numpy as np
 
 class Game:
     """A class representing a single state of the game we try to simulate"""
-    def __init__(self,numAgent,Gini,para,distr = 'lognormal'):
+    def __init__(self, numAgent, Gini, para, distr = 'lognormal'):
         """Constructor
         
         Args: 
@@ -41,9 +41,9 @@ class Game:
                 wealth.append(int(random.uniform(para, b)))
         g = nx.complete_graph(numAgent)
         for i in range(numAgent):
-            g.nodes[i]['player'] = Player(i,a = wealth[i],s = 'coop')
+            g.nodes[i]['player'] = Player(i,a = wealth[i], s = 'coop')
         self.network = g
-        self.players = nx.get_node_attributes(g,'player')
+        self.players = nx.get_node_attributes(g, 'player')
         
     def wealth_distr(self):
         """return the wealth of agents as a list"""
@@ -52,9 +52,9 @@ class Game:
             wealth.append(p.asset)
         return wealth 
         
-    def naive(a,b,w):
+    def naive(self, a, b, w):
         """A naive way to calculate the probability of breaking ties given two players's gain a, b and average global gain:
-            If both above average, the pobability of breaking tie is low: 0.1
+            If both above average, the probability of breaking tie is low: 0.1
             If both below average, a high probability of breaking tie: 0.9
             Otherwise 50/50 chance 
             """
@@ -73,18 +73,17 @@ class Game:
         n is total number of agents
         G is Gini
         """
-        pass # for now
-    
-        # n = number of edges
-        # delta = 0
-        # ybar = mean(y[:]) # find avg of wealth
-        # for j in range(n - 1):
-        #     for (j + 1) in range(n):
-        #         delta += abs(y[i] - y[j]) # obv make this correspond to wealth attribute
-        # 
-        # G = (delta / (n * (n - 1))) * ( 1 / ybar )
-        #
-        #return G     
+        pass 
+        n = (numAgents * (numAgents - 1)) / 2 # num edges
+        delta = 0 
+        ybar = mean(Game.wealth_distr[]) # find avg of wealth
+        for j in range(n - 1):
+            for (j + 1) in range(n):
+                delta += abs(Game.wealth_distr[i] - Game.wealth_distr[j]) # obv make this correspond to wealth attribute
+        
+        G = (delta / (n * (n - 1))) * ( 1 / ybar )
+        
+        return G     
     
     def succ(self,f = naive):  #successor  
         """Given a current game state and a function f , return the game state of next round 
