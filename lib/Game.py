@@ -65,9 +65,27 @@ class Game:
     def distr(self):
         """plot the distribution of assets of the current state"""
         pass
+
+    def gini(self)
+        """Returns the difference-based Gini based on Bowles/Carlin
+
+        delta is sum of abs differences between agents
+        ybar is average wealth in network
+        n is total number of agents
+        G is Gini
+        """
+        pass # for now
     
-    """the methods that are not implemented are not necessary for a functioning model but may become handy during analysis.
-    Will update when I have time :)"""
+        # n = number of edges
+        # delta = 0
+        # ybar = mean(y[:]) # find avg of wealth
+        # for j in range(n - 1):
+        #     for (j + 1) in range(n):
+        #         delta += abs(y[i] - y[j]) # obv make this correspond to wealth attribute
+        # 
+        # G = (delta / (n * (n - 1))) * ( 1 / ybar )
+        #
+        #return G 
 
 class Player:
     """A player class that represents every single player with their strategy as str, 
