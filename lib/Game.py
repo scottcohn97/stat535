@@ -73,17 +73,17 @@ class Game:
         n is total number of agents
         G is Gini
         """
-        pass
-        #n = (numAgents * (numAgents - 1)) / 2 # num edges
-        #delta = 0 
-        #ybar = mean(Game.wealth_distr[]) # find avg of wealth
-        #for j in range(n - 1):
-        #    for (j + 1) in range(n):
-        #        delta += abs(Game.wealth_distr[i] - Game.wealth_distr[j]) # obv make this correspond to wealth attribute
+        pass 
+        n = (numAgents * (numAgents - 1)) / 2 # num edges
+        delta = 0 
+        ybar = mean(Game.wealth_distr[]) # find avg of wealth
+        for j in range(n - 1):
+            for (j + 1) in range(n):
+                delta += abs(Game.wealth_distr[i] - Game.wealth_distr[j]) # obv make this correspond to wealth attribute
         
-        #G = (delta / (n * (n - 1))) * ( 1 / ybar )
+        G = (delta / (n * (n - 1))) * ( 1 / ybar )
         
-        #return G     
+        return G     
     
     def succ(self,f = naive):  #successor  
         """Given a current game state and a function f , return the game state of next round 

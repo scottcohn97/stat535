@@ -1,8 +1,3 @@
-import sys
-from Game import *
-
-
-
-
+import Game
 
 
