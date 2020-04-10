@@ -66,3 +66,23 @@ A `segregated group` is one that is connected and separated from another group.
 - game.py is source file
 - separate files of indiv sim go in a new file / sub dir
 
+# Fri Apr 10
+
+## Liwen 
+
+- Add Gini function based on math (see overleaf)
+- Randomly assign strategies (uniform)
+- Plot wealth over time
+- Plot gini vs number of rounds
+- Think about how to make network graphs (maybe subgraphs?)
+    + maybe plot a smaller number of agents
+
+## Scott + Vignesh
+
+- Write Intro
+- Outline methods
+- Outline "The Model" 
+
+## All
+
+Talk about "statistical significance" and experimental design
