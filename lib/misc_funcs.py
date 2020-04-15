@@ -11,9 +11,9 @@ Some misc. functions for exploring the simulation
 import matplotlib.pyplot as plt
 import pandas as pd
 
-numAgents = 0 # init numAgents
+from Game import *
 
-def strat_distribution(g):
+def strat_distribution(g, numAgents):
     """
     Plot strategy distribution for a game instance
     """
@@ -28,13 +28,13 @@ def strat_distribution(g):
             strat_distro["random"] += 1
 
     print(f"Cooperate: {strat_distro.get('coop')} Defect: {strat_distro.get('defect')} Random: {strat_distro.get('random')}")
-    
+
     x = strat_distro.keys()
     y = strat_distro.values()
 
     return(plt.bar(x, y))
 
-def game_df(g):
+def game_df(g, numAgents):
     """
     Takes a game instance and creates a pandas df of id, strat, assets
     """
@@ -46,13 +46,13 @@ def game_df(g):
         id.append(g.players[i].id)
         strat.append(g.players[i].strat)
         assets.append(g.players[i].asset)
-    
+
     df = pd.DataFrame({"id" : id, "strategies" : strat, "assets" : assets})
-    
+
     return df
 
-def strat_plot(g):
-    df = game_df(g)
+def strat_plot(g, numAgents):
+    df = game_df(g, numAgents)
 
     groups = df.groupby("id")
     for strategies, assets in groups:
@@ -66,9 +66,5 @@ def sim(g, N):
     """
     for _ in range(N):
         g = g.succ()
-    
+   
     return g
-
-if __name__ == "__main__":
-    main()
-

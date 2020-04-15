@@ -34,7 +34,7 @@ __init__	lib/Game.py	/^    def __init__(self,ID,a = 0, s = 'random'):$/;"	m	clas
 __init__	lib/Game.py	/^    def __init__(self,numAgent,Gini,para,distr = 'lognormal'):$/;"	m	class:Game
 __init__	lib/Game.py	/^    def __init__(self,p1,p2,c1 = 'E',c2 = 'L'):$/;"	m	class:Matrix
 file org	TODO.md	/^### file org$/;"	S	chapter:Wed Apr 1
-game_df	lib/misc_funcs.py	/^def game_df(g):$/;"	f
+game_df	lib/misc_funcs.py	/^def game_df(g, numAgents):$/;"	f
 general	TODO.md	/^### general$/;"	S	chapter:Wed Apr 1
 gini	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def gini(self):$/;"	m	class:Game
 gini	lib/Game.py	/^    def gini(self):$/;"	m	class:Game
@@ -42,7 +42,6 @@ naive	lib/.ipynb_checkpoints/Game-checkpoint.py	/^def naive(a,b,w):$/;"	f
 naive	lib/Game.py	/^def naive(a,b,w):$/;"	f
 np	lib/.ipynb_checkpoints/Game-checkpoint.py	/^import numpy as np$/;"	I
 np	lib/Game.py	/^import numpy as np$/;"	I
-numAgents	lib/misc_funcs.py	/^numAgents = 0 # init numAgents$/;"	v
 nx	lib/.ipynb_checkpoints/Game-checkpoint.py	/^import networkx as nx $/;"	I
 nx	lib/Game.py	/^import networkx as nx $/;"	I
 payoff	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def payoff(self):$/;"	m	class:Matrix
@@ -50,8 +49,8 @@ payoff	lib/Game.py	/^    def payoff(self):$/;"	m	class:Matrix
 pd	lib/misc_funcs.py	/^import pandas as pd$/;"	I
 plt	lib/misc_funcs.py	/^import matplotlib.pyplot as plt$/;"	I
 sim	lib/misc_funcs.py	/^def sim(g, N):$/;"	f
-strat_distribution	lib/misc_funcs.py	/^def strat_distribution(g):$/;"	f
-strat_plot	lib/misc_funcs.py	/^def strat_plot(g):$/;"	f
+strat_distribution	lib/misc_funcs.py	/^def strat_distribution(g, numAgents):$/;"	f
+strat_plot	lib/misc_funcs.py	/^def strat_plot(g, numAgents):$/;"	f
 succ	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def succ(self,f = naive):  #successor  $/;"	m	class:Game
 succ	lib/Game.py	/^    def succ(self,f = naive):  #successor  $/;"	m	class:Game
 takeAct	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def takeAct(self,opponent,C = ('E', 'L')):$/;"	m	class:Player
