@@ -10,11 +10,14 @@
 All	TODO.md	/^## All$/;"	s	chapter:Fri Apr 10
 Figures	TODO.md	/^### Figures$/;"	S	chapter:Theory
 Fri Apr 10	TODO.md	/^# Fri Apr 10$/;"	c
+Game	lib/.ipynb_checkpoints/Game-checkpoint.py	/^class Game:$/;"	c
 Game	lib/Game.py	/^class Game:$/;"	c
 Initial Conditions / Framework	TODO.md	/^### Initial Conditions \/ Framework$/;"	S	chapter:Theory
 Interpreting Results	TODO.md	/^### Interpreting Results$/;"	S	chapter:Theory
 Liwen	TODO.md	/^## Liwen $/;"	s	chapter:Fri Apr 10
+Matrix	lib/.ipynb_checkpoints/Game-checkpoint.py	/^class Matrix:$/;"	c
 Matrix	lib/Game.py	/^class Matrix:$/;"	c
+Player	lib/.ipynb_checkpoints/Game-checkpoint.py	/^class Player:$/;"	c
 Player	lib/Game.py	/^class Player:$/;"	c
 Range / Granularity	TODO.md	/^### Range \/ Granularity$/;"	S	chapter:Theory
 Scott + Vignesh	TODO.md	/^## Scott + Vignesh$/;"	s	chapter:Fri Apr 10
@@ -24,17 +27,36 @@ Title: TBD	README.md	/^## Title: TBD$/;"	s	chapter:Statistics 535 Final Project
 Wed Apr 1	TODO.md	/^# Wed Apr 1$/;"	c
 What to measure	TODO.md	/^### What to measure$/;"	S	chapter:Wed Apr 1
 [Micro] Dynamics	TODO.md	/^### [Micro] Dynamics$/;"	S	chapter:Theory
+__init__	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def __init__(self,ID,a = 0, s = 'random'):$/;"	m	class:Player
+__init__	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def __init__(self,numAgent,Gini,para,distr = 'lognormal'):$/;"	m	class:Game
+__init__	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def __init__(self,p1,p2,c1 = 'E',c2 = 'L'):$/;"	m	class:Matrix
 __init__	lib/Game.py	/^    def __init__(self,ID,a = 0, s = 'random'):$/;"	m	class:Player
 __init__	lib/Game.py	/^    def __init__(self,numAgent,Gini,para,distr = 'lognormal'):$/;"	m	class:Game
 __init__	lib/Game.py	/^    def __init__(self,p1,p2,c1 = 'E',c2 = 'L'):$/;"	m	class:Matrix
 file org	TODO.md	/^### file org$/;"	S	chapter:Wed Apr 1
+game_df	lib/misc_funcs.py	/^def game_df(g):$/;"	f
 general	TODO.md	/^### general$/;"	S	chapter:Wed Apr 1
+gini	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def gini(self):$/;"	m	class:Game
 gini	lib/Game.py	/^    def gini(self):$/;"	m	class:Game
+naive	lib/.ipynb_checkpoints/Game-checkpoint.py	/^def naive(a,b,w):$/;"	f
 naive	lib/Game.py	/^def naive(a,b,w):$/;"	f
+np	lib/.ipynb_checkpoints/Game-checkpoint.py	/^import numpy as np$/;"	I
 np	lib/Game.py	/^import numpy as np$/;"	I
+numAgents	lib/misc_funcs.py	/^numAgents = 0 # init numAgents$/;"	v
+nx	lib/.ipynb_checkpoints/Game-checkpoint.py	/^import networkx as nx $/;"	I
 nx	lib/Game.py	/^import networkx as nx $/;"	I
+payoff	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def payoff(self):$/;"	m	class:Matrix
 payoff	lib/Game.py	/^    def payoff(self):$/;"	m	class:Matrix
+pd	lib/misc_funcs.py	/^import pandas as pd$/;"	I
+plt	lib/misc_funcs.py	/^import matplotlib.pyplot as plt$/;"	I
+sim	lib/misc_funcs.py	/^def sim(g, N):$/;"	f
+strat_distribution	lib/misc_funcs.py	/^def strat_distribution(g):$/;"	f
+strat_plot	lib/misc_funcs.py	/^def strat_plot(g):$/;"	f
+succ	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def succ(self,f = naive):  #successor  $/;"	m	class:Game
 succ	lib/Game.py	/^    def succ(self,f = naive):  #successor  $/;"	m	class:Game
+takeAct	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def takeAct(self,opponent,C = ('E', 'L')):$/;"	m	class:Player
 takeAct	lib/Game.py	/^    def takeAct(self,opponent,C = ('E', 'L')):$/;"	m	class:Player
+toImage	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def toImage(self):$/;"	m	class:Game
 toImage	lib/Game.py	/^    def toImage(self):$/;"	m	class:Game
+wealth_distr	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def wealth_distr(self):$/;"	m	class:Game
 wealth_distr	lib/Game.py	/^    def wealth_distr(self):$/;"	m	class:Game
