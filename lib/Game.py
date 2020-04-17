@@ -12,7 +12,7 @@ from scipy import special
 import networkx as nx 
 import random 
 import numpy as np
-
+import math
 
 
 def naive(a,b,w):
@@ -40,7 +40,7 @@ def deterministic(a,b,w):
 
 class Game:
     """A class representing a single state of the game we try to simulate"""
-    def __init__(self,numAgent,Gini,para,prob =[0.25,0.25,0.25,0.25],distr = 'lognormal'):
+    def __init__(self,numAgent,Gini,para = 10,prob =[0.25,0.25,0.25,0.25],distr = 'lognormal'):
         """Constructor
         
         Args: 
@@ -48,6 +48,7 @@ class Game:
         Gini: the initial gini coefficient
         para: parameter depending on distribution chosen for initial wealth distribution. 
                  If lognormal, para = mu. If expontential, para = lambda. If uniform, para= a.
+        prob: the probability of an agent getting certain strategy, defaulted to be equally likely
         distr: lognormal, exp, uni
         """
         assert distr in ['lognormal','exp','uni'], "invalid distribution"
@@ -72,7 +73,7 @@ class Game:
         self.players = nx.get_node_attributes(g,'player')
         
     def wealth_distr(self,numRound,strat = ''):
-        """return the wealth of agents as a list"""
+        """return the wealth of agents as a list for given round and agent population"""
         assert numRound < len(self.players[0].asset), 'invalid round number'
         wealth = []
         if strat == '':
@@ -83,8 +84,10 @@ class Game:
                 if p.strat == strat:
                     wealth.append(p.asset[numRound])
         return wealth 
+    
         
-    def playerWealth(self,id):
+    def individualWealth(self,id):
+        """return the asset of an individual agent"""
         return self.players[id].asset
         
     def gini(self,numRound,strat =''):
@@ -136,13 +139,24 @@ class Game:
         return self
     
     def sim(self,numRounds,breakTie = naive):
+        """run simulation a given number of rounds with a given tie breaking mechanism"""
         for i in range(numRounds):
             self.succ(breakTie)
         return self 
     
     def toImage(self):
         """plot the graph that represents the current state"""
-        #TODO
+        label = []
+        color =['r','b','y','g']
+        s =['coop','defect','random','tft']
+        for i in self.players.values():
+            label.append(color[s.index(i.strat)])
+        size = []
+        for i in self.wealth_distr(-1):
+            size.append(i)
+        a = max(size)
+        size = list(map(lambda x: x/a*280,self.wealth_distr(-1)))
+        nx.draw(self.network,node_size =size,node_color = label)
         pass
     
     
@@ -151,13 +165,13 @@ class Game:
 
 class Player:
     """A player class that represents every single player with their strategy as str, current assets as int, and the actions taken as a list"""
-    def __init__(self,ID,a, s = 'random'):
+    def __init__(self,ID,a =[], s = 'random'):
         self.id = ID
         self.acts = {}
         self.asset = a #change this to list to record the history of wealth
         self.strat = s
         self.gain = 0
-    #A note: if define constructor as init(self,ID, A=[],a=0,s = 'r'), p1 and p2 will be updated simultaneously when calling takeAct. 
+        
     def takeAct(self,opponent,C = ('E', 'L')):
         """Given an opponent and two choices as C, get the action based on the strategy, and update Actions taken"""
         if self.strat == 'random':
