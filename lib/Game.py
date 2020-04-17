@@ -12,7 +12,6 @@ from scipy import special
 import networkx as nx 
 import random 
 import numpy as np
-import math
 
 
 def naive(a,b,w):
@@ -145,19 +144,25 @@ class Game:
         return self 
     
     def toImage(self):
-        """plot the graph that represents the current state"""
+        """plot the connected graph that represents the current state
+        red: coop
+        blue: defect
+        yellow: random
+        green: tft
+        The size of a node corresponds to realtive wealth of the agent in the connected component
+        """
         label = []
         color =['r','b','y','g']
         s =['coop','defect','random','tft']
-        for i in self.players.values():
-            label.append(color[s.index(i.strat)])
         size = []
-        for i in self.wealth_distr(-1):
-            size.append(i)
+        np = len(self.players)
+        nlist = list(max(nx.connected_components(self.network), key=len))
+        for i in nlist:
+            label.append(color[s.index(self.players[i].strat)])
+            size.append(self.wealth_distr(-1)[i])
         a = max(size)
         size = list(map(lambda x: x/a*280,self.wealth_distr(-1)))
-        nx.draw(self.network,node_size =size,node_color = label)
-        pass
+        nx.draw(self.network,nodelist = nlist,node_size =size,node_color = label,width=1 - len(nlist)/np+0.1)
     
     
 
