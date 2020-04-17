@@ -29,11 +29,18 @@ def naive(a,b,w):
             return 0.5
             
 
-
+def deterministic(a,b,w):
+        """deterministic tie breaking
+            """
+        if a >= w and b >= w:
+            return 0
+        else:
+            return 1
+    
 
 class Game:
     """A class representing a single state of the game we try to simulate"""
-    def __init__(self,numAgent,Gini,para,distr = 'lognormal'):
+    def __init__(self,numAgent,Gini,para,prob =[0.25,0.25,0.25,0.25],distr = 'lognormal'):
         """Constructor
         
         Args: 
@@ -59,22 +66,30 @@ class Game:
                 wealth.append(int(random.uniform(para, b)))
         g = nx.complete_graph(numAgent)
         for i in range(numAgent):
-            strats = ['coop','defect','random']
-            g.nodes[i]['player'] = Player(i,a = wealth[i],s = np.random.choice(strats))
+            strats = ['coop','defect','random','tft']
+            g.nodes[i]['player'] = Player(i,a = [wealth[i]],s = np.random.choice(strats,p = prob))
         self.network = g
         self.players = nx.get_node_attributes(g,'player')
         
-    def wealth_distr(self):
+    def wealth_distr(self,numRound,strat = ''):
         """return the wealth of agents as a list"""
+        assert numRound < len(self.players[0].asset), 'invalid round number'
         wealth = []
-        for p in self.players.values():
-            wealth.append(p.asset)
+        if strat == '':
+            for p in self.players.values():
+                wealth.append(p.asset[numRound])
+        else:
+            for p in self.players.values():
+                if p.strat == strat:
+                    wealth.append(p.asset[numRound])
         return wealth 
         
-    
-    def gini(self):
+    def playerWealth(self,id):
+        return self.players[id].asset
+        
+    def gini(self,numRound,strat =''):
         "calculate the current gini using the method provided by literature provided in the report"
-        y = self.wealth_distr()
+        y = self.wealth_distr(numRound,strat)
         D = 0
         n = len(y)
         for i in range(n-1):
@@ -96,13 +111,14 @@ class Game:
             b = self.players[e[1]]
             M  = Matrix(a,b)
             P = M.payoff()
-            a.asset += P[a.id]
             a.gain += P[a.id]
-            b.asset += P[b.id]
             b.gain += P[b.id]
         
-        for p in self.players.values():
-            totalgain += p.gain
+        for a in self.players.values():
+            a.asset.append(a.asset[-1]+a.gain)
+            totalgain += a.gain
+
+        
         
         avg = totalgain/ len(self.players)
         for e in list(self.network.edges):
@@ -119,9 +135,14 @@ class Game:
         
         return self
     
+    def sim(self,numRounds,breakTie = naive):
+        for i in range(numRounds):
+            self.succ(breakTie)
+        return self 
+    
     def toImage(self):
         """plot the graph that represents the current state"""
-        
+        #TODO
         pass
     
     
@@ -130,10 +151,10 @@ class Game:
 
 class Player:
     """A player class that represents every single player with their strategy as str, current assets as int, and the actions taken as a list"""
-    def __init__(self,ID,a = 0, s = 'random'):
+    def __init__(self,ID,a, s = 'random'):
         self.id = ID
         self.acts = {}
-        self.asset = a
+        self.asset = a #change this to list to record the history of wealth
         self.strat = s
         self.gain = 0
     #A note: if define constructor as init(self,ID, A=[],a=0,s = 'r'), p1 and p2 will be updated simultaneously when calling takeAct. 
@@ -145,7 +166,11 @@ class Player:
             a = C[0]
         if self.strat == 'defect':
             a = C[1]
-        # Only implemented 3 easy strategies thus far, will add more
+        if self.strat =='tft':
+            if opponent.id not in self.acts:
+                a = C[0]
+            else:
+                a = opponent.acts[self.id][-1]
         if opponent.id in self.acts:
             self.acts[opponent.id].append(a)
         else:
