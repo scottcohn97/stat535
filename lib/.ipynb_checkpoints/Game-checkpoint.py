@@ -14,13 +14,13 @@ import random
 import numpy as np
 
 
-
 def naive(a,b,w):
-        """A naive way to calculate the probability of breaking ties given two players's gain a, b and average global gain:
+        """
+        A naive way to calculate the probability of breaking ties given two players's gain a, b and average global gain:
             If both above average, the pobability of breaking tie is low: 0.1
             If both below average, a high probability of breaking tie: 0.9
             Otherwise 50/50 chance 
-            """
+        """
         if a >= w and b >= w:
             return 0.01
         elif a < w and b < w:
@@ -29,18 +29,28 @@ def naive(a,b,w):
             return 0.5
             
 
-
+def deterministic(a,b,w):
+        """
+        deterministic tie breaking
+        """
+        if a >= w and b >= w:
+            return 0
+        else:
+            return 1
+    
 
 class Game:
     """A class representing a single state of the game we try to simulate"""
-    def __init__(self,numAgent,Gini,para,distr = 'lognormal'):
-        """Constructor
+    def __init__(self,numAgent,Gini,para = 10,prob =[0.25,0.25,0.25,0.25],distr = 'lognormal'):
+        """
+        Constructor
         
         Args: 
         numAgent: the number of agents 
         Gini: the initial gini coefficient
         para: parameter depending on distribution chosen for initial wealth distribution. 
                  If lognormal, para = mu. If expontential, para = lambda. If uniform, para= a.
+        prob: the probability of an agent getting certain strategy, defaulted to be equally likely
         distr: lognormal, exp, uni
         """
         assert distr in ['lognormal','exp','uni'], "invalid distribution"
@@ -59,22 +69,32 @@ class Game:
                 wealth.append(int(random.uniform(para, b)))
         g = nx.complete_graph(numAgent)
         for i in range(numAgent):
-            strats = ['coop','defect','random']
-            g.nodes[i]['player'] = Player(i,a = wealth[i],s = np.random.choice(strats))
+            strats = ['coop','defect','random','tft']
+            g.nodes[i]['player'] = Player(i,a = [wealth[i]],s = np.random.choice(strats,p = prob))
         self.network = g
         self.players = nx.get_node_attributes(g,'player')
         
-    def wealth_distr(self):
-        """return the wealth of agents as a list"""
+    def wealth_distr(self,numRound,strat = ''):
+        """return the wealth of agents as a list for given round and agent population"""
+        assert numRound < len(self.players[0].asset), 'invalid round number'
         wealth = []
-        for p in self.players.values():
-            wealth.append(p.asset)
+        if strat == '':
+            for p in self.players.values():
+                wealth.append(p.asset[numRound])
+        else:
+            for p in self.players.values():
+                if p.strat == strat:
+                    wealth.append(p.asset[numRound])
         return wealth 
-        
     
-    def gini(self):
+        
+    def individualWealth(self,id):
+        """return the asset of an individual agent"""
+        return self.players[id].asset
+        
+    def gini(self,numRound,strat =''):
         "calculate the current gini using the method provided by literature provided in the report"
-        y = self.wealth_distr()
+        y = self.wealth_distr(numRound,strat)
         D = 0
         n = len(y)
         for i in range(n-1):
@@ -96,14 +116,13 @@ class Game:
             b = self.players[e[1]]
             M  = Matrix(a,b)
             P = M.payoff()
-            a.asset += P[a.id]
             a.gain += P[a.id]
-            b.asset += P[b.id]
             b.gain += P[b.id]
         
-        for p in self.players.values():
-            totalgain += p.gain
-        
+        for a in self.players.values():
+            a.asset.append(a.asset[-1]+a.gain)
+            totalgain += a.gain
+
         avg = totalgain/ len(self.players)
         for e in list(self.network.edges):
             a = self.players[e[0]]
@@ -119,25 +138,44 @@ class Game:
         
         return self
     
+    def sim(self,numRounds,breakTie = naive):
+        """run simulation a given number of rounds with a given tie breaking mechanism"""
+        for i in range(numRounds):
+            self.succ(breakTie)
+        return self 
+    
     def toImage(self):
-        """plot the graph that represents the current state"""
-        
-        pass
+        """plot the connected graph that represents the current state
+        red: coop
+        blue: defect
+        yellow: random
+        green: tft
+        The size of a node corresponds to realtive wealth of the agent in the connected component
+        """
+        label = []
+        color =['r','b','y','g']
+        s =['coop','defect','random','tft']
+        size = []
+        np = len(self.players)
+        nlist = list(max(nx.connected_components(self.network), key=len))
+        for i in nlist:
+            label.append(color[s.index(self.players[i].strat)])
+            size.append(self.wealth_distr(-1)[i])
+        a = max(size)
+        size = list(map(lambda x: x/a*280,self.wealth_distr(-1)))
+        nx.draw(self.network,nodelist = nlist,node_size =size,node_color = label,width=1 - len(nlist)/np+0.1)
     
-    
-
-
 
 class Player:
     """A player class that represents every single player with their strategy as str, current assets as int, and the actions taken as a list"""
-    def __init__(self,ID,a = 0, s = 'random'):
+    def __init__(self,ID,a =[], s = 'random'):
         self.id = ID
         self.acts = {}
-        self.asset = a
+        self.asset = a #change this to list to record the history of wealth
         self.strat = s
         self.gain = 0
-    #A note: if define constructor as init(self,ID, A=[],a=0,s = 'r'), p1 and p2 will be updated simultaneously when calling takeAct. 
-    def takeAct(self,opponent,C = ('E', 'L')):
+        
+    def takeAct(self,opponent,C = ('C', 'D')):
         """Given an opponent and two choices as C, get the action based on the strategy, and update Actions taken"""
         if self.strat == 'random':
             a = random.choice(C)
@@ -145,7 +183,11 @@ class Player:
             a = C[0]
         if self.strat == 'defect':
             a = C[1]
-        # Only implemented 3 easy strategies thus far, will add more
+        if self.strat =='tft':
+            if opponent.id not in self.acts:
+                a = C[0]
+            else:
+                a = opponent.acts[self.id][-1]
         if opponent.id in self.acts:
             self.acts[opponent.id].append(a)
         else:
@@ -155,7 +197,7 @@ class Player:
 
 class Matrix:
     """"A helper class that gives corresponding payoffs for two player"""
-    def __init__(self,p1,p2,c1 = 'E',c2 = 'L'):
+    def __init__(self,p1,p2,c1 = 'C',c2 = 'D'):
         self.player1 = p1
         self.player2 = p2
         self.c1 = c1

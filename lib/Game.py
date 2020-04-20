@@ -15,11 +15,12 @@ import numpy as np
 
 
 def naive(a,b,w):
-        """A naive way to calculate the probability of breaking ties given two players's gain a, b and average global gain:
+        """
+        A naive way to calculate the probability of breaking ties given two players's gain a, b and average global gain:
             If both above average, the pobability of breaking tie is low: 0.1
             If both below average, a high probability of breaking tie: 0.9
             Otherwise 50/50 chance 
-            """
+        """
         if a >= w and b >= w:
             return 0.01
         elif a < w and b < w:
@@ -29,8 +30,9 @@ def naive(a,b,w):
             
 
 def deterministic(a,b,w):
-        """deterministic tie breaking
-            """
+        """
+        deterministic tie breaking
+        """
         if a >= w and b >= w:
             return 0
         else:
@@ -40,7 +42,8 @@ def deterministic(a,b,w):
 class Game:
     """A class representing a single state of the game we try to simulate"""
     def __init__(self,numAgent,Gini,para = 10,prob =[0.25,0.25,0.25,0.25],distr = 'lognormal'):
-        """Constructor
+        """
+        Constructor
         
         Args: 
         numAgent: the number of agents 
@@ -120,8 +123,6 @@ class Game:
             a.asset.append(a.asset[-1]+a.gain)
             totalgain += a.gain
 
-        
-        
         avg = totalgain/ len(self.players)
         for e in list(self.network.edges):
             a = self.players[e[0]]
@@ -164,9 +165,6 @@ class Game:
         size = list(map(lambda x: x/a*280,self.wealth_distr(-1)))
         nx.draw(self.network,nodelist = nlist,node_size =size,node_color = label,width=1 - len(nlist)/np+0.1)
     
-    
-
-
 
 class Player:
     """A player class that represents every single player with their strategy as str, current assets as int, and the actions taken as a list"""
@@ -177,7 +175,7 @@ class Player:
         self.strat = s
         self.gain = 0
         
-    def takeAct(self,opponent,C = ('E', 'L')):
+    def takeAct(self,opponent,C = ('C', 'D')):
         """Given an opponent and two choices as C, get the action based on the strategy, and update Actions taken"""
         if self.strat == 'random':
             a = random.choice(C)
@@ -199,7 +197,7 @@ class Player:
 
 class Matrix:
     """"A helper class that gives corresponding payoffs for two player"""
-    def __init__(self,p1,p2,c1 = 'E',c2 = 'L'):
+    def __init__(self,p1,p2,c1 = 'C',c2 = 'D'):
         self.player1 = p1
         self.player2 = p2
         self.c1 = c1
