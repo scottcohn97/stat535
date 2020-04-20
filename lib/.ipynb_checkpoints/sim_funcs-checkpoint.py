@@ -3,7 +3,7 @@
 """
 Created on 2020-04-15 18:39
 
-Some misc. functions for exploring the simulation
+Module for exploring the simulation
 
 @author: Scott Cohn
 """

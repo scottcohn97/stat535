@@ -41,7 +41,7 @@ def deterministic(a,b,w):
 
 class Game:
     """A class representing a single state of the game we try to simulate"""
-    def __init__(self,numAgent,Gini,para = 10,prob =[0.25,0.25,0.25,0.25],distr = 'lognormal'):
+    def __init__(self,numAgent,Gini,para = 2,prob =[0.25,0.25,0.25,0.25],distr = 'lognormal'):
         """
         Constructor
         
