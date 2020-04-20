@@ -17,17 +17,19 @@ def strat_distribution(g, numAgents):
     """
     Plot strategy distribution for a game instance
     """
-    strat_distro = {"coop" : 0, "defect" : 0, "random" : 0} # [coop, defect, random]
+    strat_distro = {"coop" : 0, "defect" : 0, "random" : 0, "tft" : 0} # [coop, defect, random]
 
     for i in range(numAgents):
         if g.players[i].strat == "coop":
             strat_distro["coop"] += 1
         elif g.players[i].strat == "defect":
             strat_distro["defect"] += 1
+        elif g.players[i].strat == "tft":
+            strat_distro["tft"] += 1
         else:
             strat_distro["random"] += 1
 
-    print(f"Cooperate: {strat_distro.get('coop')} Defect: {strat_distro.get('defect')} Random: {strat_distro.get('random')}")
+    print(f"Cooperate: {strat_distro.get('coop')} Defect: {strat_distro.get('defect')} Random: {strat_distro.get('random')} TFT: {strat_distro.get('tft')}")
 
     x = strat_distro.keys()
     y = strat_distro.values()
