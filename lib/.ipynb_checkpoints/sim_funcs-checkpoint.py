@@ -51,15 +51,26 @@ def game_df(g, numAgents):
         assets.append(g.players[i].asset)
 
     df = pd.DataFrame({"id" : id, "strategies" : strat, "assets" : assets})
+    
+    # expand df.tags into its own dataframe
+    assets = df['assets'].apply(pd.Series)
 
+    # rename each variable is tags
+    assets = assets.rename(columns = lambda x : 'a_' + str(x))
+
+    df = pd.concat([df[:], assets[:]], axis=1)
+    
+    # drop asset list col
+    df = df.drop(['assets'], axis=1)
+    
     return df
 
-def strat_plot(g, numAgents):
+def strat_plot(g, numAgents, round):
     df = game_df(g, numAgents)
 
     groups = df.groupby("id")
     for strategies, assets in groups:
-        plt.plot(df["strategies"], df["assets"], marker="o", color = 'g', linestyle="", label=id)
+        plt.plot(df["strategies"], df["a_" + str(round)], marker="o", color = 'g', linestyle="", label=id)
 
 def sim(g, N):
     """
