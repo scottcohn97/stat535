@@ -50,7 +50,9 @@ general	TODO.md	/^### general$/;"	S	chapter:Wed Apr 1
 gini	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def gini(self,numRound,strat =''):$/;"	m	class:Game
 gini	lib/Game.py	/^    def gini(self,numRound,strat =''):$/;"	m	class:Game
 gini	lib/Game_depricated.py	/^    def gini(self,numRound,strat =''):$/;"	m	class:Game
-gini_01	output/assets.R	/^gini_01  <- read.csv("output\/g1.csv")$/;"	g
+gini_01	output/assets.R	/^gini_01 <- gini_01 %>%$/;"	g
+gini_01	output/assets.R	/^gini_01 <- read.csv("output\/g1.csv")$/;"	g
+gini_01$round	output/assets.R	/^gini_01$round <- as.integer(as.factor(gini_01$round))$/;"	g
 individualWealth	lib/.ipynb_checkpoints/Game-checkpoint.py	/^    def individualWealth(self,id):$/;"	m	class:Game
 individualWealth	lib/Game.py	/^    def individualWealth(self,id):$/;"	m	class:Game
 individualWealth	lib/Game_depricated.py	/^    def individualWealth(self,id):$/;"	m	class:Game
