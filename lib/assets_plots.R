@@ -4,6 +4,11 @@
 
 library('tidyverse')
 library('ggsci')
+library('extrafont')
+library('ggpubr')
+
+# run once at start
+# font_import(pattern = "lmroman10-regular-webfont") 
 
 g01p <- read.csv("g01p.csv")
 g03p <- read.csv("g03p.csv")
@@ -16,11 +21,13 @@ asset.plot <- function(df){
         ggplot(aes(x = round, y = assets, color = strategies)) + 
         geom_point() + 
         ggsci::scale_color_d3() +
-        theme_bw() + 
+        theme_pubr(base_size = 14, legend = "right") +
         xlab("Round") + 
         ylab("Assets") +
         labs(color = "Strategies") +
-        theme(text = element_text(size = 19),
+        grids(axis = "xy", linetype = "dotted", color = "#a9a9a9") +
+        theme(text = element_text(family = "LM Roman 10", size = 19),
+              # text = element_text(size = 19),
               axis.text = element_text(size = 16),
               axis.title = element_text(size = 19),
               panel.grid.minor = element_blank(),
