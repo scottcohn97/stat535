@@ -1,6 +1,7 @@
 #' Evol of wealth on networks
 #' Scott Cohn
 #' 2020-04-20
+#' Graph processed data
 
 library('tidyverse')
 library('ggsci')
