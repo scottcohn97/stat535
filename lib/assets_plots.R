@@ -12,10 +12,10 @@ library('ggpubr')
 # font_import(pattern = "lmroman10-regular-webfont") 
 
 # Import
-g01p <- read_csv("output/g01p.csv")
-g03p <- read_csv("output/g03p.csv")
-g07p <- read_csv("output/g07p.csv")
-g09p <- read_csv("output/g09p.csv")
+g01p_std <- read_csv("output/g01p_std.csv")
+g03p_std <- read_csv("output/g03p_std.csv")
+g07p_std <- read_csv("output/g07p_std.csv")
+g09p_std <- read_csv("output/g09p_std.csv")
 
 g01_hc1p <- read_csv("output/g01_hc1p.csv")
 g03_hc1p <- read_csv("output/g03_hc1p.csv")
@@ -39,7 +39,7 @@ asset.plot <- function(df){
         ggplot(aes(x = round, y = assets, color = strategies)) + 
         geom_point() + 
         ggsci::scale_color_d3() +
-        theme_pubr(base_size = 14, legend = "right") +
+        theme_pubr(base_size = 14, legend = "bottom") +
         xlab("Round") + 
         ylab("Assets") +
         labs(color = "Strategies") +
@@ -55,10 +55,10 @@ asset.plot <- function(df){
 }
 
 # Plot
-p01 <- asset.plot(g01p)
-p03 <- asset.plot(g03p)
-p07 <- asset.plot(g07p)
-p09 <- asset.plot(g09p)
+p01_std <- asset.plot(g01p_std)
+p03_std <- asset.plot(g03p_std)
+p07_std <- asset.plot(g07p_std)
+p09_std <- asset.plot(g09p_std)
 
 p01_hc1 <- asset.plot(g01_hc1p)
 p03_hc1 <- asset.plot(g03_hc1p)
@@ -76,16 +76,16 @@ p07_hc3 <- asset.plot(g07_hc3p)
 p09_hc3 <- asset.plot(g09_hc3p)
 
 #Save plot to PDF
-ggsave(p01, filename = "figs/p01.pdf", 
+ggsave(p01_std, filename = "figs/p01_std.pdf", 
        width = 9, height = 7, units = "in")
 
-ggsave(p03, filename = "figs/p03.pdf", 
+ggsave(p03_std, filename = "figs/p03_std.pdf", 
        width = 9, height = 7, units = "in")
 
-ggsave(p07, filename = "figs/p07.pdf", 
+ggsave(p07_std, filename = "figs/p07_std.pdf", 
        width = 9, height = 7, units = "in")
 
-ggsave(p09, filename = "figs/p09.pdf", 
+ggsave(p09_std, filename = "figs/p09_std.pdf", 
        width = 9, height = 7, units = "in")
 #
 ggsave(p01_hc1, filename = "figs/p01_hc1.pdf", 

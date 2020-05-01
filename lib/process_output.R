@@ -8,10 +8,10 @@ library('tidyverse')
 # Import 
 
 # standard treatment --- uniform strat distro
-gini_01 <- read_csv("output/g1.csv")
-gini_03 <- read_csv("output/g3.csv")
-gini_07 <- read_csv("output/g7.csv")
-gini_09 <- read_csv("output/g9.csv")
+gini_01_std <- read_csv("output/g1_std.csv")
+gini_03_std <- read_csv("output/g3_std.csv")
+gini_07_std <- read_csv("output/g7_std.csv")
+gini_09_std <- read_csv("output/g9_std.csv")
 
 # high coop 1 - 3
 gini_01_hc1 <- read_csv("output/g1_hc1.csv")
@@ -42,17 +42,17 @@ process.csv <- function(df){
 }
 
 # Process and write to csv
-g01p <- process.csv(gini_01)
-write_csv(g01p, path = 'output/g01p.csv')
+g01p_std <- process.csv(gini_01_std)
+write_csv(g01p_std, path = 'output/g01p_std.csv')
 
-g03p <- process.csv(gini_03)
-write_csv(g03p, path = 'output/g03p.csv')
+g03p_std <- process.csv(gini_03_std)
+write_csv(g03p_std, path = 'output/g03p_std.csv')
 
-g07p <- process.csv(gini_07)
-write_csv(g07p, path = 'output/g07p.csv')
+g07p_std <- process.csv(gini_07_std)
+write_csv(g07p_std, path = 'output/g07p_std.csv')
 
-g09p <- process.csv(gini_09)
-write_csv(g09p, path = 'output/g09p.csv')
+g09p_std <- process.csv(gini_09_std)
+write_csv(g09p_std, path = 'output/g09p_std.csv')
 # 
 g01_hc1p <- process.csv(gini_01_hc1)
 write_csv(g01_hc1p, path = 'output/g01_hc1p.csv')
