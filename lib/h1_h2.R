@@ -77,19 +77,6 @@ df_master <- df_master[-1, ]
 # write to csv
 write_csv(df_master, path = 'output/fin_round_mean_stdv.csv')
 
-df_master %>% ggplot(aes(x = stdev, y = mean, label = treatment)) + 
-  geom_text(check_overlap = TRUE, size = 5, vjust = "inward", hjust = "inward") +
-  ggsci::scale_color_d3() +
-  theme_pubr(base_size = 14, legend = "bottom") +
-  xlab("Standard Deviation") + 
-  ylab("Mean") +
-  grids(axis = "xy", linetype = "dotted", color = "#a9a9a9") +
-  theme(text = element_text(family = "LM Roman 10", size = 19),
-        axis.text = element_text(size = 16),
-        axis.title = element_text(size = 19),
-        panel.grid.minor = element_blank(),
-        plot.margin = margin(5, 20, 5, 8))
-
 # top 10 by stdev
 df_master %>% 
   arrange(desc(stdev)) %>% 
@@ -99,3 +86,25 @@ df_master %>%
 df_master %>% 
   arrange(desc(mean)) %>% 
   slice(1:10)
+
+p <- df %>% ggplot(aes(x = stdev, y = mean)) + 
+  geom_text(aes(label = treatment), 
+            check_overlap = TRUE, 
+            vjust = "inward", 
+            hjust = "inward", 
+            family = "LM Roman 10",
+            size = 7) + 
+  ggsci::scale_color_d3() +
+  theme_pubr(base_size = 14, legend = "bottom") +
+  xlab("Standard Deviation") + 
+  ylab("Mean") +
+  grids(axis = "xy", linetype = "dotted", color = "#a9a9a9") +
+  theme(text = element_text(family = "LM Roman 10", size = 19),
+        # text = element_text(size = 19),
+        axis.text = element_text(size = 16),
+        axis.title = element_text(size = 19),
+        panel.grid.minor = element_blank(),
+        plot.margin = margin(5, 20, 5, 8))
+
+ggsave(p, filename = "figs/std_mean_tx.pdf", 
+       width = 7, height = 7, units = "in")
