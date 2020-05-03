@@ -16,7 +16,6 @@ proj/
 ├── doc/
 ├── figs/
 ├── output/
-├── papers/
 └── README
 ```
 
